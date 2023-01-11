@@ -37,10 +37,6 @@ const logger = createLogger({
       level: "http",
       format: filterOnly("http"),
     }),
-    new transports.File({
-      filename: "./logger/debug.log",
-      level: "debug",
-    }),
   ],
 });
 
