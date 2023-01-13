@@ -21,3 +21,4 @@
 - [Cors](https://www.npmjs.com/package/cors)
 - [Mysql](https://www.mysql.com/)
 - [Nodemon](https://www.npmjs.com/package/nodemon)
+- [JSON Web Token](https://www.npmjs.com/package/jsonwebtoken)
