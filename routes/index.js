@@ -1,8 +1,8 @@
 const express = require("express");
-const logIn = require("./logIn");
+const login = require("./login");
 
 const routes = express.Router();
 
-routes.use("/logIn", logIn);
+routes.use("/login", login);
 
 module.exports = routes;

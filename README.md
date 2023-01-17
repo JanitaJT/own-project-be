@@ -22,3 +22,4 @@
 - [Mysql](https://www.mysql.com/)
 - [Nodemon](https://www.npmjs.com/package/nodemon)
 - [JSON Web Token](https://www.npmjs.com/package/jsonwebtoken)
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
