@@ -1,5 +1,6 @@
 USE own_project;
 
+DROP TABLE IF EXISTS Task;
 DROP TABLE IF EXISTS User;
 
 /* -------------------------------------------- */
@@ -20,6 +21,21 @@ start_date	DATE 			NOT NULL,
 PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS Task (
+id			INTEGER 		NOT NULL AUTO_INCREMENT,
+assigned 	DATETIME		NOT NULL,
+name		VARCHAR(100)	NOT NULL,
+description	VARCHAR(255), 	
+completed	BOOLEAN			NOT NULL,
+dl			DATETIME		NOT NULL,
+user_id		INTEGER,
+PRIMARY KEY (id),
+CONSTRAINT FOREIGN KEY (user_id) REFERENCES User(id)
+ON DELETE SET NULL
+ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
 /* -------------------------------------------- */
 
 /* --- INSERTS --- */
@@ -29,6 +45,9 @@ INSERT INTO User (first_name, last_name, phone_num, email, username, password, s
 ("John", "Smith", "+358 508347996", "john.smith@company.com", "john.smith","Kh66fl88pp" '2010-10-11' ),
 ("Daniel", "Rivera", "+358 505649056", "daniel.rivera@company.com", "daniel.rivera", "Ha60gg65kc" '2008-09-13' ),
 ("Ellie", "Kingsley", "+358 405679436", "ellie.kingsley@company.com", "ellie.kingsley","Fa50we45qr", '2008-09-13' );
+
+INSERT INTO Task(assigned, name, description, completed, dl, user_id) VALUES
+("2023-01-16 11:00", "First task", "Get this into frontend", false, "2023-01-18 17:00", 1);
 
 /* --- UPDATES --- */
 

@@ -5,4 +5,16 @@ function createToken(userToken) {
   return token;
 }
 
-module.exports = { createToken };
+function validateToken(userToken) {
+  let result;
+  jwt.verify(userToken, process.env.JWT_SECRET, function (err, decoded) {
+    if (err !== null) {
+      result = false;
+    } else {
+      result = decoded;
+    }
+  });
+  return result;
+}
+
+module.exports = { createToken, validateToken };
