@@ -29,4 +29,33 @@ task.get("/userTasks", (req, res) => {
   }
 });
 
+task.post("/post", (req, res) => {
+  let jwt = req.headers.authorization.split(" ")[1];
+  let isValidated = validateToken(jwt);
+  if (!isValidated) {
+    requestErrorHandler(res, "Token invalid", err);
+  } else {
+    const assigned = req.body.assigned;
+    const name = req.body.name;
+    const description = req.body.description;
+    const completed = req.body.completed;
+    const dl = req.body.dl;
+    const user_id = isValidated.id;
+    const sqlAddTask =
+      "INSERT INTO Task (assigned, name, description, completed, dl, user_id) VALUES (?,?,?,?,?,?);";
+    db.query(
+      sqlAddTask,
+      [assigned, name, description, completed, dl, user_id],
+      (err, result) => {
+        if (err) {
+          dbErrorHandler(res, err, "Insert into task failed");
+        } else {
+          successHandler(res, result, "New task successfully added");
+          logger.info("Task " + req.body.name + " added");
+        }
+      }
+    );
+  }
+});
+
 module.exports = task;
