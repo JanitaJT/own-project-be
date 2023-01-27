@@ -10,8 +10,7 @@ const dbErrorHandler = (res, error, message) => {
   if (!message) {
     message = dbErrorMessage;
   }
-  //message += " Db error code: " + error;
-  // message += " Db error message: " + error.message;
+  message += " Db error code: " + error;
 
   logger.error(message);
   res.status(500).send(dbErrorMessage);

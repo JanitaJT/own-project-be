@@ -12,7 +12,7 @@ const {
   validationErrorHandler,
 } = require("../responseHandler/index");
 const { body, validationResult } = require("express-validator");
-const { validateUser } = require("../ValidationHandler/user");
+const { validateUser } = require("../validationHandler/login");
 
 login.post("/login", validateUser, (req, res) => {
   const errors = validationResult(req);

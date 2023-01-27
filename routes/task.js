@@ -9,6 +9,9 @@ const {
   requestErrorHandler,
   validationErrorHandler,
 } = require("../responseHandler/index");
+const fns = require("date-fns");
+const { validateTask } = require("../validationHandler/task");
+const { body, validationResult } = require("express-validator");
 
 task.get("/userTasks", (req, res) => {
   //   console.log("req", req.headers.authorization.split(" ")[1]); How to get jwt
@@ -29,18 +32,28 @@ task.get("/userTasks", (req, res) => {
   }
 });
 
-task.post("/post", (req, res) => {
+task.post("/post", validateTask, (req, res) => {
+  const errors = validationResult(req);
   let jwt = req.headers.authorization.split(" ")[1];
   let isValidated = validateToken(jwt);
   if (!isValidated) {
     requestErrorHandler(res, "Token invalid", err);
   } else {
-    const assigned = req.body.assigned;
+    const assigned = fns.format(
+      new Date(req.body.assigned),
+      "yyyy-MM-dd hh:mm:ss"
+    );
     const name = req.body.name;
     const description = req.body.description;
     const completed = req.body.completed;
-    const dl = req.body.dl;
+    const dl = fns.format(new Date(req.body.dl), "yyyy-MM-dd hh:mm:ss");
     const user_id = isValidated.id;
+    if (!errors.isEmpty()) {
+      logger.error("Validation error:  %O", errors);
+    }
+    if (!errors.isEmpty()) {
+      return validationErrorHandler(res, "Formatting problem");
+    }
     const sqlAddTask =
       "INSERT INTO Task (assigned, name, description, completed, dl, user_id) VALUES (?,?,?,?,?,?);";
     db.query(

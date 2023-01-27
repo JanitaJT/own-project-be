@@ -23,6 +23,7 @@
 - [Nodemon](https://www.npmjs.com/package/nodemon)
 - [JSON Web Token](https://www.npmjs.com/package/jsonwebtoken)
 - [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- [date-fns](https://www.npmjs.com/package/date-fns)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
